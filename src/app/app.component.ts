@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Product } from './product.model';
-import { Product2 } from 'src/app/models/product2.model';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

@@ -90,7 +90,7 @@
     <img [src]="product.image" alt="image">
     <h2>Precio: {{product.price}} </h2>
     <h2>Nombre: {{product.name}} </h2>
-    <h2 *ngIf="product.category != ''">Categoria: {{product.category}} </h2>
+    <h2 *ngIf="product.category !== ''">Categoria: {{product.category}} </h2>
   </div>
 </div>
 <hr/>

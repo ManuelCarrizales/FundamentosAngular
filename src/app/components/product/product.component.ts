@@ -12,13 +12,20 @@ export class ProductComponent {
       id: '',
       title: '',
       price: 0,
-      image: '',
+      images: [],
       description: '',
-      category: '',
+      category: {
+        id: '',
+        name:''
+      },
     }
   @Output() addedProduct = new EventEmitter<Product2>();
+  @Output() showProduct = new EventEmitter<string>(); 
 
   onAddToCart(){
     this.addedProduct.emit(this.product);
+  }
+  showDetail(){
+    this.showProduct.emit(this.product.id);
   }
 }

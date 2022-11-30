@@ -14,6 +14,8 @@ export class ProductsComponent {
     this.myShoppingCart = this.storeService.getShoppingCart();
   }
 
+  showProductDetail = false;
+
   myShoppingCart: Product2[] = [];
   total = 0;
   today = new Date();
@@ -77,5 +79,15 @@ export class ProductsComponent {
     this.storeService.addProduct(product);
     this.total = this.storeService.getTotal();
     console.log(product);
+  }
+
+  toggleProductDetail(){
+    this.showProductDetail = !this.showProductDetail;
+  }
+
+  onShowDetail(id:string){
+    this.productsServices.getProduct(id).subscribe(data =>{
+      console.log('Product' + data);
+    });
   }
 }

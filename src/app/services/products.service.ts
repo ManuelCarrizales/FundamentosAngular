@@ -6,9 +6,14 @@ import { Product2 } from '../models/product2.model';
 })
 export class ProductsService {
 
+  private apiURL = 'https://young-sands-07814.herokuapp.com/api/products';
   constructor(private http:HttpClient) { }
 
   getAllProducts(){
-    return this.http.get<Product2[]>('https://fakestoreapi.com/products');
+    return this.http.get<Product2[]>(this.apiURL);
+  }
+
+  getProduct(id:string){
+    return this.http.get<Product2>(`${this.apiURL}/${id}`);
   }
 }

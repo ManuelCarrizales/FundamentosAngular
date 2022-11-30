@@ -1,4 +1,3 @@
-const usarname = 'Manuel';
 
 const sum = (a: number, b: number) => {
     return a + b;
