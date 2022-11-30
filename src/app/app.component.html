@@ -1,3 +1,13 @@
+<app-nav></app-nav>
+<app-products></app-products>
+<hr/>
+<h1>ANGULAR: COMPONENTES Y SERVICIOS</h1>
+<hr/>
+<p><input type="text"  [(ngModel)]="imgParent" ></p>
+<button (click)="toggleImg()"> Toggle Img</button>
+<app-img *ngIf="showImg" (loaded)="onLoaded($event)" [img]="imgParent"></app-img>
+
+<h1>FUNDAMENTOS DE ANGULAR</h1>
 <h1>Formulario</h1>
 <form (ngSubmit)="onRegister()" #myForm="ngForm">
   <div class="input-group">

@@ -1,0 +1,18 @@
+<p>
+    La cantidad de productos agregados {{ myShoppingCart.length}}
+</p>
+<p>
+    Precio total de productos {{ total }} MXN
+</p>
+<p>
+    Hoy: {{ today | date:'short' }}
+</p>
+<p>
+    Fecha: {{ date | timeAgo }}
+</p>
+<p>
+{{ 'NNninOUOhchOHohIH' | reverse  }}
+</p>
+<div class="products--grid">
+    <app-product (addedProduct)="onAddToShoppingCart($event)" [product]="product" *ngFor="let product of product2" ></app-product>
+</div>

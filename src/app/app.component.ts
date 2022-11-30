@@ -1,11 +1,23 @@
 import { Component } from '@angular/core';
 import { Product } from './product.model';
+import { Product2 } from 'src/app/models/product2.model';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  //ANGULAR: COMPONENTES Y SERVICIOS
+  imgParent = ''
+  showImg = true;
+  onLoaded(img: string){
+    console.log('Log padre', img);
+  }
+  toggleImg(){
+    this.showImg = !this.showImg;
+  }
+
+  //FUNDAMENTOS DE ANGULAR
   register = {
     name: '',
     email: '',
