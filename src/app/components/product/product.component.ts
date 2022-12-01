@@ -25,7 +25,7 @@ export class ProductComponent {
   onAddToCart(){
     this.addedProduct.emit(this.product);
   }
-  showDetail(){
+  onShowDetail(){
     this.showProduct.emit(this.product.id);
   }
 }

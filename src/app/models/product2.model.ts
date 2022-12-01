@@ -1,3 +1,7 @@
+export interface UpdateProductDTO extends Partial<CreateProductDTO> {}
+export interface CreateProductDTO extends Omit<Product2, 'id' | 'category'>{
+    categoryId: number,
+}
 export interface Product2{
     id: string,
     title: string,
@@ -5,6 +9,7 @@ export interface Product2{
     images: string[],
     description: string,
     category: Category,
+    taxes?:number,
 }
 
 export interface Category{
