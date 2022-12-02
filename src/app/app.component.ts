@@ -1,14 +1,19 @@
 import { Component } from '@angular/core';
 import { Product } from './product.model';
+import { AuthService } from './services/auth.service';
+import { UsersService } from './services/users.service';
+import { Auth } from './models/auht.model';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  constructor(private authService: AuthService, private usersService: UsersService){}
   //ANGULAR: COMPONENTES Y SERVICIOS
   imgParent = ''
   showImg = true;
+  token = '';
   onLoaded(img: string){
     console.log('Log padre', img);
   }
@@ -107,4 +112,15 @@ export class AppComponent {
   onRegister(){
     console.log(this.register);
   }
+
+  createUser(){
+    this.usersService.create({
+      name: 'Manuel',
+      email: 'manuel@gmail.com',
+      password: '1212'
+    }).subscribe(rta =>{
+      console.log(rta)
+    })
+  }
+
 }
