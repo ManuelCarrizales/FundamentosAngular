@@ -3,13 +3,30 @@ import { Product } from './product.model';
 import { AuthService } from './services/auth.service';
 import { UsersService } from './services/users.service';
 import { Auth } from './models/auht.model';
+import { FilesService } from './services/files.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(private authService: AuthService, private usersService: UsersService){}
+  constructor(private authService: AuthService, private usersService: UsersService, private fileService: FilesService){}
+  //Guardar archivos
+  imgRta='';
+  downloadPdf(){
+    this.fileService.getFile('my.pdf','http://www.ataun.eus/bibliotecagratuita/Cl%C3%A1sicos%20en%20Espa%C3%B1ol/Federico%20Garc%C3%ADa%20Lorca/El%20p%C3%BAblico.pdf','application/pdf')
+  }
+
+  onUpload(event: Event){
+    const element = event.target as HTMLInputElement;
+    const file = element.files?.item(0);
+    if(file){
+      this.fileService.uploadFile(file).subscribe(rta => {
+        this.imgRta = rta.location;
+      })
+    }
+  }
+
   //ANGULAR: COMPONENTES Y SERVICIOS
   imgParent = ''
   showImg = true;
