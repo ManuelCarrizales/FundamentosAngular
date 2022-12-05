@@ -4,28 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ImgComponent } from './components/img/img.component';
-import { ProductComponent } from './components/product/product.component';
-import { ProductsComponent } from './components/products/products.component';
-import { NavComponent } from './components/nav/nav.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ReversePipe } from './pipes/reverse.pipe';
-import { TimeAgoPipe } from './pipes/time-ago.pipe';
-import { HighlightDirective } from './directives/highlight.directive'
+
+import { HighlightDirective } from './website/directives/highlight.directive'
 import { SwiperModule } from 'swiper/angular';
 import { TimeInterceptor } from './interceptors/time.interceptor';
 import { TokenInterceptor } from './interceptors/token.interceptor';
-
 @NgModule({
   declarations: [
     AppComponent,
-    ImgComponent,
-    ProductComponent,
-    ProductsComponent,
-    NavComponent,
-    ReversePipe,
-    TimeAgoPipe,
-    HighlightDirective
+    HighlightDirective,
+    
   ],
   imports: [
     BrowserModule,

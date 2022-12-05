@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CreateProductDTO, Product2,UpdateProductDTO } from 'src/app/models/product2.model';
 import { StoreService } from 'src/app/services/store.service';
 import { ProductsService } from 'src/app/services/products.service';
@@ -12,6 +12,14 @@ import { zip } from 'rxjs'
 })
 export class ProductsComponent {
 
+  @Input() products: Product2[] = [];
+  // @Input() productId: string | null = null;
+  @Input() set productId(id: string | null){
+    if(id){
+      this.onShowDetail(id);
+    }
+  }
+  @Output() loadMore = new EventEmitter();
   constructor(private storeService: StoreService,private productsServices: ProductsService){
     this.myShoppingCart = this.storeService.getShoppingCart();
   }
@@ -29,8 +37,8 @@ export class ProductsComponent {
       },
   };
 
-  limit= 10
-  offset=0
+  // limit= 10
+  // offset=0
 
   statusDetail: 'loading' | 'success' | 'error' | 'init' = 'init';
 
@@ -83,15 +91,15 @@ export class ProductsComponent {
     // },
   ]
 
-  ngOnInit(): void{
-    //Obtener todos los productos
-    // this.productsServices.getAllProducts().subscribe(data =>{
-    //   this.product2 = data;
-    // })
-    this.productsServices.getAllProducts(10,0).subscribe(data =>{
-      this.product2 = data;
-    })
-  }
+  // ngOnInit(): void{
+  //   //Obtener todos los productos
+  //   // this.productsServices.getAllProducts().subscribe(data =>{
+  //   //   this.product2 = data;
+  //   // })
+  //   this.productsServices.getAllProducts(10,0).subscribe(data =>{
+  //     this.product2 = data;
+  //   })
+  // }
 
   onAddToShoppingCart(product: Product2){
     // this.myShoppingCart.push(product)
@@ -110,7 +118,9 @@ export class ProductsComponent {
   onShowDetail(id:string){
     this.statusDetail = 'loading';
     this.productsServices.getProduct(id).subscribe(data =>{
-      this.toggleProductDetail();
+      if(!this.showProductDetail){
+        this.showProductDetail = true
+      }
       this.productChosen = data;
       this.statusDetail = 'success';
     }, errorMessage => {
@@ -154,14 +164,14 @@ export class ProductsComponent {
         this.showProductDetail = false;
       })
   }
-  loadMore(){
-    this.productsServices.getAllProducts(this.limit, this.offset).subscribe(data =>{
-      // Se reemplazan los productos ya cargados
-      // this.product2 = data; 
-      this.product2 = this.product2.concat(data);
-      this.offset += this.limit;
-    })
-  }
+  // loadMore(){
+  //   this.productsServices.getAllProducts(this.limit, this.offset).subscribe(data =>{
+  //     // Se reemplazan los productos ya cargados
+  //     // this.product2 = data; 
+  //     this.product2 = this.product2.concat(data);
+  //     this.offset += this.limit;
+  //   })
+  // }
 
   readAndUpdate(id:string){
 
@@ -179,5 +189,9 @@ export class ProductsComponent {
       const read = response [0];
       const update = response[1];
     });
+  }
+
+  onLoadMore(){
+    this.loadMore.emit();
   }
 }

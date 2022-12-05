@@ -9,8 +9,8 @@
 </p>
 <button (click)="createNewProduct()">Crear un producto</button>
 <div class="products--grid">
-    <app-product (showProduct)="onShowDetail($event)" (addedProduct)="onAddToShoppingCart($event)" [product]="product" *ngFor="let product of product2" ></app-product>
-    <button (click)="loadMore()" > Cargar más </button>
+    <app-product (showProduct)="onShowDetail($event)" (addedProduct)="onAddToShoppingCart($event)" [product]="product" *ngFor="let product of products" ></app-product>
+    <button (click)="onLoadMore()" > Cargar más </button>
 </div>
 
 <div class="product-detail" [class.active]="showProductDetail">

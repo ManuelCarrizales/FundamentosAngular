@@ -6,7 +6,7 @@ import { Auth } from './models/auht.model';
 import { FilesService } from './services/files.service';
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
+  template: '<router-outlet></router-outlet>',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {

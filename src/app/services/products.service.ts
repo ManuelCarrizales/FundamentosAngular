@@ -9,7 +9,7 @@ import { checkTime } from '../interceptors/time.interceptor';
 })
 export class ProductsService {
 
-  private apiURL = 'https://young-sands-07814.herokuapp.com/api/products';
+  private apiURL = 'https://young-sands-07814.herokuapp.com/api';
   constructor(private http:HttpClient) { }
 
   getAllProducts(limit?:number, offset?: number){
@@ -18,7 +18,7 @@ export class ProductsService {
       params = params.set('limit',limit);
       params = params.set('offset',offset);
     }
-    return this.http.get<Product2[]>(this.apiURL,{ params, context: checkTime() }).pipe((retry(3),map(products => products.map(item => {
+    return this.http.get<Product2[]>(`${this.apiURL}/products`,{ params, context: checkTime() }).pipe((retry(3),map(products => products.map(item => {
       return {
         ...item,
         taxes: .19 * item.price
@@ -27,7 +27,7 @@ export class ProductsService {
   }
 
   getProduct(id:string){
-    return this.http.get<Product2>(`${this.apiURL}/${id}`)
+    return this.http.get<Product2>(`${this.apiURL}/products/${id}`)
     .pipe(catchError((error: HttpErrorResponse) =>{
       if(error.status === HttpStatusCode.Conflict){
         return throwError(() => new Error('Ups algo salio mal'))
@@ -44,17 +44,17 @@ export class ProductsService {
 
   //dto : data transfer object
   createProduct(dto: CreateProductDTO){
-    return this.http.post<CreateProductDTO>(this.apiURL,dto);
+    return this.http.post<CreateProductDTO>(`${this.apiURL}/products`,dto);
   }
 
   //Put se envia toda la información completa para hacer la actualización
   //Patch este solo se envie el/los atributos que se cambian en la actualización
   updateProduct(id:string ,dto: any){
-    return this.http.put<Product2>(`${this.apiURL}/${id}`, dto)
+    return this.http.put<Product2>(`${this.apiURL}/products/${id}`, dto)
   }
 
   deleteProduct(id:string){
-    return this.http.delete<boolean>(`${this.apiURL}/${id}`);
+    return this.http.delete<boolean>(`${this.apiURL}/products/${id}`);
   }
 
   fetchReadAndUpdate(id: string, dto: UpdateProductDTO){
@@ -64,4 +64,14 @@ export class ProductsService {
       this.updateProduct(id, dto)
     );
   }
+
+  getByCategory(categoryId: string, limit?:string, offset?:string){
+    let params = new HttpParams();
+    if(limit && offset){
+      params = params.set('limit', limit);
+      params = params.set('offset', offset);
+    }
+    return this.http.get<Product2[]>(`${this.apiURL}/categories/${categoryId}/products`,{params});
+  }
+
 }
